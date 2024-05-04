@@ -1,0 +1,59 @@
+# Link to Huggingface model page:
+# Original: https://huggingface.co/yunconglong/Truthful_DPO_TomGrc_FusionNet_7Bx2_MoE_13B
+# GGUF version: https://huggingface.co/Nan-Do/Truthful_DPO_TomGrc_FusionNet_7Bx2_MoE_13B-GGUF
+
+# ------------------------------------------------------------------------------------------
+# Change the following variables (that are above the dashed line) as you see fit
+
+# low, medium, high or ultra
+quality: medium 
+
+# "standard", "everything" or "knowledge graph"
+  # "standard" fully stores the past few prompts in memory but summarizes older prompts (best for most use cases)
+  # "everything" keeps all prompts in memory (best for when you need exact information from the past)
+  # "knowledge graph" uses a knowledge graph to store information (aka: "tv", "true", "is broken") (best for when you need to remember a lot of information or relationships between information)
+memory_type: everything
+
+# How many prompts back do you want the model to remember?
+# ONLY used if memory_type is "standard" or "everything"
+memory_length: 10
+
+# How many tokens back do you want the model to handle (history + input + response)
+# 1-5 is small, 5-8 is good, 9-15 is a large amount and 15+ is extreme.
+context_size: 8
+
+# Mode: creative, balanced or factual
+# "creative" will result in more creative and imaginative text, while "factual" will result in more accurate and factual text. "balanced" is a mix of both.
+mode: factual
+
+# This is the style that the AI will use to generate text 
+# This is NOT the prompt! (You input that when you run the program)
+style: "You are a helpful, factual, and concise AI assistant that provides specific details from its context. The AI provides short and to the point answers. If the AI does not know the answer to a question, it truthfully says it does not know. Once the AI is finished answering the question, it will stop."
+
+
+
+# === Options that may break things ===
+
+# If you want the AI responses to print character by character (like a human typing), set this to true
+# Otherwise, it will wait to print until the full response is generated.
+# WARNING: This can make the AI repeat itself and make its responses unusable! If that happens, set this to false.
+use_streaming: false
+
+
+
+
+# DO NOT CHANGE ANYTHING BELOW THIS LINE
+# ------------------------------------------------------------------------------------------
+# name of the model - See models file for available models
+model: truthful
+class_name: Truthful
+repo_id: Nan-Do/Truthful_DPO_TomGrc_FusionNet_7Bx2_MoE_13B-GGUF
+
+ultra:
+  model_filename: Truthful_DPO_TomGrc_FusionNet_7Bx2_MoE_13B-Q8_0.gguf
+high:
+  model_filename: Truthful_DPO_TomGrc_FusionNet_7Bx2_MoE_13B-Q5_1.gguf
+medium:
+  model_filename: Truthful_DPO_TomGrc_FusionNet_7Bx2_MoE_13B-Q4_1.gguf
+low:
+  model_filename: Truthful_DPO_TomGrc_FusionNet_7Bx2_MoE_13B-Q3_K.gguf
