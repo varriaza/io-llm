@@ -28,7 +28,7 @@ python run.py mistral_7b
 python run.py truthful
 ```
 
-#### snorkel
+### snorkel
 ```sh
 python run.py snorkel 
 ```
