@@ -4,6 +4,9 @@
 # ------------------------------------------------------------------------------------------
 # Change the following variables (that are above the dashed line) as you see fit
 
+# The name of the AI (this will be displayed in the chat box)
+name: AI
+
 # low, medium, high or ultra
 quality: medium 
 

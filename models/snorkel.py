@@ -23,6 +23,6 @@ class Snorkel(BaseModel):
         Run the model, print the response and return the response.
         """
         response = conversation_with_summary.predict(input=text)
-        print(response)
+        print(f"{self.ai_name}:{response}")
 
         return response

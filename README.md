@@ -4,9 +4,13 @@ This project is a collection of AI models that can be run interactively. The mod
 
 ## Setup and Installation
 1. Clone the repo 
+```sh
+git clone https://github.com/varriaza/io-llm.git
+```
 2. In the terminal run:
 ```sh
-cd io-llm
+python -m venv io-llm
+source io-llm/bin/activate
 ```
 3. In the terminal run:
 ```sh

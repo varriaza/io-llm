@@ -38,11 +38,13 @@ def main(yaml_file):
     model = ModelClass(variables)
     conversation_with_summary = model.setup_model()
 
+    print("Type 'exit' to stop\n---------------------------------------")
+
     while True:
         # Make sure the user inputs something
         text = ""
         while text == "":
-            text = input("\n---------------------------------------\nUser input (type 'exit' to stop): ")
+            text = input("\nUser: ")
         # Exit the program if the user types 'exit'
         if text.lower() == "exit" or text.lower() == "quit" or text.lower() == "'exit'": 
             break
