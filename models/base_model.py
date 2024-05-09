@@ -14,10 +14,12 @@ class BaseModel:
     def __init__(self, variables: dict[str, any]):
         self.variables = variables
         # Load variables and standardize to lowercase
+        self.ai_name = self.variables["name"]
         self.model_name = self.variables["model"].lower()
         self.quality = self.variables["quality"].lower()
         self.model_filename = self.variables[self.quality]["model_filename"]
         self.model_path = "./model_files/" + self.model_filename
+        self.memory_type = self.variables["memory_type"]
         self.mode = self.variables["mode"].lower()
         if self.mode == "creative":
             self.temperature = .25
@@ -82,7 +84,7 @@ class BaseModel:
         hf_hub_download(repo_id=repo_id, filename=model_filename, local_dir="./model_files/", local_dir_use_symlinks=False)
 
 
-    def setup_conversation_chain(self, template: str, debug: bool = True) -> ConversationChain:
+    def setup_conversation_chain(self, template: str, debug: bool = False) -> ConversationChain:
         """
         Setup the conversation chain.
         """
@@ -117,16 +119,16 @@ class BaseModel:
             )
 
 
-        if self.variables["memory_type"].lower() == "standard":
+        if self.memory_type.lower() == "standard":
             # Setting k=2, will only keep the last 2 interactions in memory
             # Setting max_token_limit=2048, will only keep the last 2048 tokens in memory
             memory = ConversationSummaryBufferMemory(k=self.variables["memory_length"], llm=llm, max_token_limit=self.max_memory_token_limit) 
-        elif self.variables["memory_type"].lower() == "knowledge graph":
+        elif self.memory_type.lower() == "knowledge graph":
             memory = ConversationKGMemory(llm=llm)
-        elif self.variables["memory_type"].lower() == "everything":
+        elif self.memory_type.lower() == "everything":
             memory = ConversationBufferMemory(k=self.variables["memory_length"], llm=llm, max_token_limit=self.max_memory_token_limit) 
         else:
-            raise ValueError(f"Memory type '{self.variables["memory"]}' not recognized.")
+            raise ValueError(f"Memory type '{self.memory_type}' not recognized.")
         
         # Setup prompt
         prompt = PromptTemplate(input_variables=['history', 'input'], template=self.template)
