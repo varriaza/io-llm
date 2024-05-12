@@ -1,11 +1,12 @@
 from models.base_model import BaseModel
 from icecream import ic
-
+import ray
 
 
 class Mistral7bInstruct(BaseModel):
     def __init__(self, variables: dict[str, any]):
         super().__init__(variables)
+        ray.init()
 
     def setup_model(self):
         """
@@ -18,6 +19,7 @@ class Mistral7bInstruct(BaseModel):
     
         return conversation_with_summary
     
+    @ray.remote
     def run_model(self, text:str, conversation_with_summary) -> str:
         """
         Run the model, print the response and return the response.

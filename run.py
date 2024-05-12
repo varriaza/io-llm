@@ -1,8 +1,8 @@
 import yaml
 import sys
 from icecream import ic
-from huggingface_hub import hf_hub_download
 from importlib import import_module
+import ray
 
 def load_variables(yaml_file) -> dict[str, any]:
     """
@@ -48,7 +48,9 @@ def main(yaml_file):
         # Exit the program if the user types 'exit'
         if text.lower() == "exit" or text.lower() == "quit" or text.lower() == "'exit'": 
             break
-        model.run_model(text, conversation_with_summary)
+        future_response = model.run_model.remote(text, conversation_with_summary)
+        response = ray.get(future_response)
+        print(f"{model.ai_name}:{response}")
 
     print("Goodbye!")
 
